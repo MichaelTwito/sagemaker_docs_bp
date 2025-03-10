@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SageMaker Churn Prediction Pipeline Documentation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+        }
+        .header {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 4px solid #0066cc;
+        }
+        .section {
+            margin: 30px 0;
+        }
+        .module-group {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+        .module-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .module-list li {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        .module-list li:hover {
+            background-color: #e9ecef;
+            transform: translateX(5px);
+        }
+        .module-list a {
+            color: #0066cc;
+            text-decoration: none;
+            display: block;
+        }
+        .module-list a:hover {
+            color: #004499;
+        }
+        .description {
+            color: #666;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+        .quick-links {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>SageMaker Churn Prediction Pipeline Documentation</h1>
+        <p>Comprehensive documentation for the customer churn prediction pipeline implemented using AWS SageMaker.</p>
+    </div>
+
+    <div class="quick-links">
+        <h3>Quick Links</h3>
+        <ul>
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#pipeline-components">Pipeline Components</a></li>
+            <li><a href="#scripts">Processing Scripts</a></li>
+            <li><a href="#utilities">Utilities</a></li>
+        </ul>
+    </div>
+
+    <div class="section" id="overview">
+        <h2>Pipeline Overview</h2>
+        <div class="module-group">
+            <ul class="module-list">
+                <li>
+                    <a href="pipeline_architecture.html">Pipeline Architecture Overview</a>
+                    <div class="description">High-level overview of the pipeline architecture and data flow</div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section" id="pipeline-components">
+        <h2>Pipeline Components</h2>
+        <div class="module-group">
+            <h3>Core Modules</h3>
+            <ul class="module-list">
+                <li>
+                    <a href="preprocessing.html">Preprocessing Module</a>
+                    <div class="description">Data preparation and feature engineering pipeline component</div>
+                </li>
+                <li>
+                    <a href="training.html">Training Module</a>
+                    <div class="description">Model training and hyperparameter optimization</div>
+                </li>
+                <li>
+                    <a href="evaluating.html">Evaluating Module</a>
+                    <div class="description">Model evaluation and metrics calculation</div>
+                </li>
+                <li>
+                    <a href="modeling.html">Modeling Module</a>
+                    <div class="description">Model creation and configuration management</div>
+                </li>
+                <li>
+                    <a href="transforming.html">Transforming Module</a>
+                    <div class="description">Batch transformation and prediction generation</div>
+                </li>
+                <li>
+                    <a href="registering.html">Registering Module</a>
+                    <div class="description">Model registration and versioning</div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section" id="scripts">
+        <h2>Processing Scripts</h2>
+        <div class="module-group">
+            <ul class="module-list">
+                <li>
+                    <a href="preprocessing_script.html">Preprocessing Script</a>
+                    <div class="description">Detailed documentation of the preprocessing implementation</div>
+                </li>
+                <li>
+                    <a href="evaluation_script.html">Evaluation Script</a>
+                    <div class="description">Model evaluation implementation and metrics calculation</div>
+                </li>
+                <li>
+                    <a href="inference.html">Inference Script</a>
+                    <div class="description">Real-time and batch inference implementation</div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section" id="utilities">
+        <h2>Utility Modules</h2>
+        <div class="module-group">
+            <ul class="module-list">
+                <li>
+                    <a href="utils.html#operations">Operations Utilities</a>
+                    <div class="description">File operations and environment setup utilities</div>
+                </li>
+                <li>
+                    <a href="utils.html#science">Science Utilities</a>
+                    <div class="description">Data processing and transformation utilities</div>
+                </li>
+                <li>
+                    <a href="utils.html#decorators">Decorators</a>
+                    <div class="description">Logging and utility decorators</div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <footer style="margin-top: 50px; text-align: center; padding: 20px; color: #666;">
+        <p>Churn Prediction Pipeline Documentation - AWS SageMaker Implementation</p>
+    </footer>
+</body>
+</html> 

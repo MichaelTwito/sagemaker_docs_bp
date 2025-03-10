@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inference Module Documentation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .method {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+        }
+        .method h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        code {
+            background-color: #eee;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        pre {
+            background-color: #f8f8f8;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Inference Module Documentation</h1>
+    <p>The inference module handles model loading and predictions for both real-time and batch inference.</p>
+
+    <h2>Key Functions</h2>
+    <div class="method">
+        <h3>model_fn(model_dir)</h3>
+        <p>Loads the trained XGBoost model from the specified directory.</p>
+    </div>
+
+    <div class="method">
+        <h3>input_fn(request_body, request_content_type)</h3>
+        <p>Handles input data processing. Supports:</p>
+        <ul>
+            <li>application/x-parquet</li>
+            <li>text/csv</li>
+        </ul>
+    </div>
+
+    <div class="method">
+        <h3>predict_fn(input_data, model)</h3>
+        <p>Generates predictions using the loaded model.</p>
+        <ul>
+            <li>Handles account_gk column preservation</li>
+            <li>Returns predictions with account identifiers</li>
+        </ul>
+    </div>
+
+    <div class="method">
+        <h3>output_fn(prediction, accept)</h3>
+        <p>Formats prediction output. Supports:</p>
+        <ul>
+            <li>application/json</li>
+            <li>text/csv</li>
+            <li>application/x-parquet</li>
+        </ul>
+    </div>
+
+    <h2>Data Flow</h2>
+    <p>The inference pipeline follows this sequence:</p>
+    <ol>
+        <li>Input data processing (input_fn)</li>
+        <li>Model loading (model_fn)</li>
+        <li>Prediction generation (predict_fn)</li>
+        <li>Output formatting (output_fn)</li>
+    </ol>
+
+    <a href="index.html">Back to Index</a>
+</body>
+</html> 

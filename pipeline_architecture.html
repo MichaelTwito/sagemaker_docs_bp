@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pipeline Architecture Documentation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+        }
+        .flow-diagram {
+            margin: 20px 0;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .code-example {
+            background-color: #f8f8f8;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>SageMaker Pipeline Architecture</h1>
+    <p>This document describes the overall architecture and flow of the churn prediction pipeline.</p>
+
+    <div class="section">
+        <h2>Pipeline Overview</h2>
+        <p>The pipeline is designed to predict customer churn using a sequence of steps:</p>
+        <ol>
+            <li>Data Preprocessing</li>
+            <li>Model Training</li>
+            <li>Model Evaluation</li>
+            <li>Model Registration</li>
+            <li>Batch Transformation</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <h2>Data Flow</h2>
+        <div class="flow-diagram">
+            <pre>
+Raw Data → Preprocessing → Training Data → Model Training → Model Evaluation → Model Registry
+                                      ↓
+                            Batch Transformation
+                                      ↓
+                            Predictions Output
+            </pre>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Key Components</h2>
+        <h3>1. Preprocessing</h3>
+        <ul>
+            <li>Data cleaning and feature engineering</li>
+            <li>Train/validation split</li>
+            <li>Feature encoding</li>
+        </ul>
+
+        <h3>2. Training</h3>
+        <ul>
+            <li>XGBoost model training</li>
+            <li>Hyperparameter optimization</li>
+            <li>Model artifact generation</li>
+        </ul>
+
+        <h3>3. Evaluation</h3>
+        <ul>
+            <li>Model performance metrics</li>
+            <li>Validation data predictions</li>
+            <li>Metrics reporting</li>
+        </ul>
+
+        <h3>4. Model Registration</h3>
+        <ul>
+            <li>Model versioning</li>
+            <li>Approval workflow</li>
+            <li>Deployment tracking</li>
+        </ul>
+
+        <h3>5. Batch Transformation</h3>
+        <ul>
+            <li>Large-scale predictions</li>
+            <li>Output formatting</li>
+            <li>Results storage</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Infrastructure</h2>
+        <ul>
+            <li>AWS SageMaker for model training and deployment</li>
+            <li>S3 for data and artifact storage</li>
+            <li>VPC configuration for network security</li>
+            <li>IAM roles for access control</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Usage Example</h2>
+        <div class="code-example">
+            <pre>
+# Pipeline execution example
+pipeline = Pipeline(
+    name="ChurnPredictionPipeline",
+    parameters=[...],
+    steps=[
+        preprocessing_step,
+        training_step,
+        evaluation_step,
+        registration_step,
+        transform_step
+    ]
+)
+            </pre>
+        </div>
+    </div>
+
+    <a href="index.html">Back to Index</a>
+</body>
+</html> 
