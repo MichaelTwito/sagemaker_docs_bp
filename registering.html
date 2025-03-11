@@ -45,6 +45,7 @@
         <pre>
 def __init__(self, pipeline_session, role, pipeline_name, base_job_name, s3_base_path, evaluator, model):
         </pre>
+        <p>Initializes the model registration module, setting up parameters for model registration.</p>
         <p>Parameters:</p>
         <ul>
             <li><code>pipeline_session</code>: SageMaker pipeline session</li>
@@ -57,15 +58,47 @@ def __init__(self, pipeline_session, role, pipeline_name, base_job_name, s3_base
         </ul>
     </div>
 
+    <h2>How the Model Registration Works</h2>
+    <p>The model registration process follows these steps:</p>
+    <ol>
+        <li><strong>Retrieving Evaluation Metrics:</strong> 
+            <ul>
+                <li>The evaluation metrics file is retrieved from S3.</li>
+            </ul>
+        </li>
+        <li><strong>Registering the Model:</strong>
+            <ul>
+                <li>The trained model is registered in the SageMaker Model Registry.</li>
+                <li>It is assigned an approval status (e.g., <code>PendingManualApproval</code>).</li>
+            </ul>
+        </li>
+        <li><strong>Defining Model Parameters:</strong>
+            <ul>
+                <li>Supported content types, response types, and instance types are set.</li>
+            </ul>
+        </li>
+        <li><strong>Storing the Model:</strong>
+            <ul>
+                <li>The model package is stored in the SageMaker Model Registry for later deployment.</li>
+            </ul>
+        </li>
+    </ol>
+
     <h2>Key Methods</h2>
     <div class="method">
         <h3>create_registery()</h3>
         <p>Creates a model package in the Model Registry.</p>
+        <pre>
+def create_registery(self, model_package_group_name):
+        </pre>
     </div>
 
     <div class="method">
         <h3>create_step()</h3>
         <p>Creates a ModelStep for the pipeline.</p>
+        <pre>
+def create_step(self):
+        </pre>
     </div>
 
     <h2>Model Registry Configuration</h2>
@@ -80,4 +113,4 @@ def __init__(self, pipeline_session, role, pipeline_name, base_job_name, s3_base
 
     <a href="index.html">Back to Index</a>
 </body>
-</html> 
+</html>

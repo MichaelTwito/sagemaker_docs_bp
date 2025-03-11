@@ -45,6 +45,7 @@
         <pre>
 def __init__(self, pipeline_session, role, pipeline_name, base_job_name, s3_base_path, preprocessor, model):
         </pre>
+        <p>Initializes the transformation module, setting up parameters for batch transformation.</p>
         <p>Parameters:</p>
         <ul>
             <li><code>pipeline_session</code>: SageMaker pipeline session</li>
@@ -57,27 +58,62 @@ def __init__(self, pipeline_session, role, pipeline_name, base_job_name, s3_base
         </ul>
     </div>
 
+    <h2>How the Batch Transformation Works</h2>
+    <p>The batch transformation process follows these steps:</p>
+    <ol>
+        <li><strong>Retrieving Model:</strong>
+            <ul>
+                <li>The trained model is loaded from SageMaker.</li>
+            </ul>
+        </li>
+        <li><strong>Preparing Batch Data:</strong>
+            <ul>
+                <li>The batch input data is retrieved from the preprocessed output.</li>
+                <li>Data is mounted in <code>/opt/ml/processing/to_predict</code>.</li>
+            </ul>
+        </li>
+        <li><strong>Running Batch Transformation:</strong>
+            <ul>
+                <li>The SageMaker <code>Transformer</code> processes batch input data.</li>
+                <li>Predictions are generated and saved to S3.</li>
+            </ul>
+        </li>
+        <li><strong>Inference Execution:</strong>
+            <ul>
+                <li>Gunicorn is used as the model server to handle inference requests.</li>
+                <li>The model runs within a SageMaker container, which loads the model and handles requests.</li>
+                <li>The model processes each batch request and returns predictions to the defined output location.</li>
+            </ul>
+        </li>
+    </ol>
+
     <h2>Key Methods</h2>
     <div class="method">
         <h3>create_transformer()</h3>
         <p>Creates a SageMaker transformer for batch predictions.</p>
+        <pre>
+def create_transformer(self):
+        </pre>
     </div>
 
     <div class="method">
         <h3>create_step()</h3>
         <p>Creates a TransformStep for the pipeline.</p>
+        <pre>
+def create_step(self):
+        </pre>
     </div>
 
     <h2>Configuration</h2>
     <p>Default transformer configuration:</p>
     <ul>
-        <li>Instance Type: ml.m5.4xlarge</li>
-        <li>Instance Count: 1</li>
-        <li>Max Payload: 100MB</li>
-        <li>Strategy: SingleRecord</li>
-        <li>Accept: application/x-parquet</li>
+        <li><strong>Instance Type:</strong> <code>ml.m5.4xlarge</code> - The compute instance type used for transformation.</li>
+        <li><strong>Instance Count:</strong> <code>1</code> - Number of instances running the batch transformation.</li>
+        <li><strong>Max Payload:</strong> <code>100MB</code> - Maximum size of payload per request. Larger payloads require chunking.</li>
+        <li><strong>Strategy:</strong> <code>SingleRecord</code> - Processes one record at a time, ensuring sequential inference execution.</li>
+        <li><strong>Accept:</strong> <code>application/x-parquet</code> - Specifies the content type expected for input data.</li>
     </ul>
 
     <a href="index.html">Back to Index</a>
 </body>
-</html> 
+</html>

@@ -45,6 +45,7 @@
         <pre>
 def __init__(self, pipeline_session, role, pipeline_name, base_job_name, s3_base_path, bucket_name, bucket_prefix):
         </pre>
+        <p>Initializes the model creation module, setting up parameters for defining the model pipeline.</p>
         <p>Parameters:</p>
         <ul>
             <li><code>pipeline_session</code>: SageMaker pipeline session</li>
@@ -57,25 +58,52 @@ def __init__(self, pipeline_session, role, pipeline_name, base_job_name, s3_base
         </ul>
     </div>
 
+    <h2>How the Model Creation Works</h2>
+    <p>The model creation process follows these steps:</p>
+    <ol>
+        <li><strong>Retrieving Trained Model:</strong> 
+            <ul>
+                <li>The trained XGBoost model is retrieved from the SageMaker training step.</li>
+            </ul>
+        </li>
+        <li><strong>Defining the Model:</strong>
+            <ul>
+                <li>A <code>PipelineModel</code> object is created using the trained model.</li>
+                <li>Network configuration (VPC, security groups) is defined for secure execution.</li>
+            </ul>
+        </li>
+        <li><strong>Saving the Model:</strong>
+            <ul>
+                <li>The pipeline model is stored for deployment.</li>
+            </ul>
+        </li>
+    </ol>
+
     <h2>Key Methods</h2>
     <div class="method">
         <h3>create_pipeline_model()</h3>
         <p>Creates a SageMaker pipeline model combining preprocessing and inference.</p>
+        <pre>
+def create_pipeline_model(self, preprocessor, trainer):
+        </pre>
     </div>
 
     <div class="method">
         <h3>create_step()</h3>
         <p>Creates a ModelStep for the pipeline.</p>
+        <pre>
+def create_step(self):
+        </pre>
     </div>
 
     <h2>Network Configuration</h2>
     <p>Default VPC configuration:</p>
     <ul>
-        <li>Subnet: subnet-01a25c61a69943669</li>
-        <li>Security Group: sg-09ec91886caa07936</li>
+        <li>Subnet: subnet-xxx</li>
+        <li>Security Group: sg-xxx</li>
         <li>Network Isolation: Enabled</li>
     </ul>
 
     <a href="index.html">Back to Index</a>
 </body>
-</html> 
+</html>

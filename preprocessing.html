@@ -45,6 +45,7 @@
         <pre>
 def __init__(self, pipeline_session, role, pipeline_name, base_job_name, s3_base_path):
         </pre>
+        <p>Initializes the preprocessing module, setting up parameters for processing steps.</p>
         <p>Parameters:</p>
         <ul>
             <li><code>pipeline_session</code>: SageMaker pipeline session</li>
@@ -55,15 +56,46 @@ def __init__(self, pipeline_session, role, pipeline_name, base_job_name, s3_base
         </ul>
     </div>
 
+    <h2>How the SKLearn Processor Works</h2>
+    <p>The SKLearn processor in SageMaker executes preprocessing steps in an isolated environment. The sequence of execution is as follows:</p>
+    <ol>
+        <li><strong>Instance Launch:</strong> A new SageMaker processing instance of the specified type (e.g., <code>ml.m5.4xlarge</code>) is started.</li>
+        <li><strong>Mounting Inputs:</strong> 
+            <ul>
+                <li>Data from the specified S3 input path is mounted to <code>/opt/ml/processing/input</code>.</li>
+                <li>Additional dependencies are mounted from <code>./preprocessing/dependencies/</code> to <code>/opt/ml/processing/input/code/dependencies/</code>.</li>
+            </ul>
+        </li>
+        <li><strong>Executing Preprocessing Script:</strong>
+            <ul>
+                <li>The script <code>preprocessing.py</code> runs inside the processing container.</li>
+                <li>It reads input data, processes it (e.g., train-test split), and writes output files.</li>
+            </ul>
+        </li>
+        <li><strong>Saving Outputs:</strong>
+            <ul>
+                <li>Processed training data is saved in <code>/opt/ml/processing/output/train</code> and uploaded to S3.</li>
+                <li>Validation and prediction datasets are stored similarly in their respective directories.</li>
+            </ul>
+        </li>
+        <li><strong>Instance Termination:</strong> Once processing is complete, the instance shuts down automatically.</li>
+    </ol>
+
     <h2>Key Methods</h2>
     <div class="method">
         <h3>create_processor()</h3>
         <p>Creates a SKLearn processor for data preprocessing with specified configurations.</p>
+        <pre>
+def create_processor(self):
+        </pre>
     </div>
 
     <div class="method">
         <h3>create_step()</h3>
         <p>Creates a ProcessingStep for the pipeline.</p>
+        <pre>
+def create_step(self):
+        </pre>
     </div>
 
     <h2>Utilities</h2>
@@ -75,4 +107,4 @@ def __init__(self, pipeline_session, role, pipeline_name, base_job_name, s3_base
 
     <a href="index.html">Back to Index</a>
 </body>
-</html> 
+</html>

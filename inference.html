@@ -43,6 +43,9 @@
     <div class="method">
         <h3>model_fn(model_dir)</h3>
         <p>Loads the trained XGBoost model from the specified directory.</p>
+        <pre>
+def model_fn(model_dir):
+        </pre>
     </div>
 
     <div class="method">
@@ -52,15 +55,21 @@
             <li>application/x-parquet</li>
             <li>text/csv</li>
         </ul>
+        <pre>
+def input_fn(request_body, request_content_type):
+        </pre>
     </div>
 
     <div class="method">
         <h3>predict_fn(input_data, model)</h3>
         <p>Generates predictions using the loaded model.</p>
         <ul>
-            <li>Handles account_gk column preservation</li>
+            <li>Handles <code>account_gk</code> column preservation</li>
             <li>Returns predictions with account identifiers</li>
         </ul>
+        <pre>
+def predict_fn(input_data, model):
+        </pre>
     </div>
 
     <div class="method">
@@ -71,17 +80,41 @@
             <li>text/csv</li>
             <li>application/x-parquet</li>
         </ul>
+        <pre>
+def output_fn(prediction, accept):
+        </pre>
     </div>
 
     <h2>Data Flow</h2>
     <p>The inference pipeline follows this sequence:</p>
     <ol>
-        <li>Input data processing (input_fn)</li>
-        <li>Model loading (model_fn)</li>
-        <li>Prediction generation (predict_fn)</li>
-        <li>Output formatting (output_fn)</li>
+        <li><strong>Input Data Processing:</strong> The <code>input_fn</code> function reads and processes the input data.</li>
+        <li><strong>Model Loading:</strong> The <code>model_fn</code> function loads the trained model into memory.</li>
+        <li><strong>Prediction Generation:</strong> The <code>predict_fn</code> function runs inference on the input data.</li>
+        <li><strong>Output Formatting:</strong> The <code>output_fn</code> function formats the predictions into the requested format.</li>
     </ol>
+
+    <h2>Inference Execution</h2>
+    <p>The inference execution process involves:</p>
+    <ul>
+        <li>Gunicorn acting as the web server to handle inference requests.</li>
+        <li>The SageMaker container loading the model and waiting for requests.</li>
+        <li>Each request being processed and a response being sent back in the specified format.</li>
+    </ul>
+
+    <h2>Supported Input Formats</h2>
+    <ul>
+        <li>Parquet (application/x-parquet)</li>
+        <li>CSV (text/csv)</li>
+    </ul>
+
+    <h2>Supported Output Formats</h2>
+    <ul>
+        <li>JSON (application/json)</li>
+        <li>CSV (text/csv)</li>
+        <li>Parquet (application/x-parquet)</li>
+    </ul>
 
     <a href="index.html">Back to Index</a>
 </body>
-</html> 
+</html>

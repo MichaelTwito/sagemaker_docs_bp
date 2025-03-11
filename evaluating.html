@@ -45,6 +45,7 @@
         <pre>
 def __init__(self, pipeline_session, role, pipeline_name, base_job_name, s3_base_path, preprocessor, trainer, bucket_name, bucket_prefix):
         </pre>
+        <p>Initializes the evaluation module, setting up parameters for model evaluation.</p>
         <p>Parameters:</p>
         <ul>
             <li><code>pipeline_session</code>: SageMaker pipeline session</li>
@@ -59,15 +60,45 @@ def __init__(self, pipeline_session, role, pipeline_name, base_job_name, s3_base
         </ul>
     </div>
 
+    <h2>How the Evaluation Process Works</h2>
+    <p>The evaluation process in SageMaker follows these steps:</p>
+    <ol>
+        <li><strong>Instance Launch:</strong> A SageMaker processing instance is started for evaluation.</li>
+        <li><strong>Mounting Inputs:</strong>
+            <ul>
+                <li>The trained model is retrieved from S3 and mounted in <code>/opt/ml/processing/model</code>.</li>
+                <li>The validation dataset is retrieved and mounted in <code>/opt/ml/processing/validation</code>.</li>
+            </ul>
+        </li>
+        <li><strong>Evaluation Execution:</strong>
+            <ul>
+                <li>The evaluation script runs and computes performance metrics such as precision, recall, F1 score, accuracy, and ROC AUC.</li>
+            </ul>
+        </li>
+        <li><strong>Saving Outputs:</strong>
+            <ul>
+                <li>The evaluation results are saved to S3 in JSON format.</li>
+                <li>Predicted values are stored in a separate S3 location.</li>
+            </ul>
+        </li>
+        <li><strong>Instance Termination:</strong> Once evaluation is complete, the instance shuts down automatically.</li>
+    </ol>
+
     <h2>Key Methods</h2>
     <div class="method">
         <h3>create_processor()</h3>
         <p>Creates a SKLearn processor for model evaluation.</p>
+        <pre>
+def create_processor(self):
+        </pre>
     </div>
 
     <div class="method">
         <h3>create_step()</h3>
         <p>Creates a ProcessingStep for evaluation in the pipeline.</p>
+        <pre>
+def create_step(self):
+        </pre>
     </div>
 
     <h2>Evaluation Metrics</h2>
@@ -84,4 +115,4 @@ def __init__(self, pipeline_session, role, pipeline_name, base_job_name, s3_base
 
     <a href="index.html">Back to Index</a>
 </body>
-</html> 
+</html>

@@ -45,6 +45,7 @@
         <pre>
 def __init__(self, pipeline_session, role, pipeline_name, base_job_name, s3_base_path, preprocessor, region):
         </pre>
+        <p>Initializes the training module, setting up parameters for model training.</p>
         <p>Parameters:</p>
         <ul>
             <li><code>pipeline_session</code>: SageMaker pipeline session</li>
@@ -57,15 +58,53 @@ def __init__(self, pipeline_session, role, pipeline_name, base_job_name, s3_base
         </ul>
     </div>
 
+    <h2>How the Training Process Works</h2>
+    <p>The training process in SageMaker follows these steps:</p>
+    <ol>
+        <li><strong>Instance Launch:</strong> A SageMaker training instance of the specified type (e.g., <code>ml.m5.4xlarge</code>) is started.</li>
+        <li><strong>Mounting Training Data:</strong>
+            <ul>
+                <li>Training and validation data from S3 are mounted to the training container.</li>
+                <li>The data is referenced using <code>TrainingInput</code> objects in SageMaker.</li>
+                <li>
+                    <b>***The following lines establish a dependency on the preprocessing step, ensuring that training will only execute once preprocessing is completed:***</b>
+                    <pre>
+'s3_data': preprocessor.step.properties.ProcessingOutputConfig.Outputs['train'].S3Output.S3Uri
+'s3_data': preprocessor.step.properties.ProcessingOutputConfig.Outputs['validation'].S3Output.S3Uri
+                    </pre>
+                    This mechanism ensures that the execution order of steps is maintained, enforcing the dependency between preprocessing and training.
+                </li>
+            </ul>
+        </li>
+        <li><strong>Training Execution:</strong>
+            <ul>
+                <li>The XGBoost training script is executed using SageMaker’s built-in XGBoost container.</li>
+                <li>Hyperparameters such as learning rate, depth, and subsample ratio are set before training begins.</li>
+            </ul>
+        </li>
+        <li><strong>Model Output:</strong>
+            <ul>
+                <li>The trained model artifact is saved to S3 in the specified output path.</li>
+            </ul>
+        </li>
+        <li><strong>Instance Termination:</strong> Once training is complete, the instance is automatically shut down.</li>
+    </ol>
+
     <h2>Key Methods</h2>
     <div class="method">
         <h3>create_estimator()</h3>
         <p>Creates an XGBoost estimator with specified hyperparameters.</p>
+        <pre>
+def create_estimator(self):
+        </pre>
     </div>
 
     <div class="method">
         <h3>create_step()</h3>
         <p>Creates a TuningStep for hyperparameter optimization.</p>
+        <pre>
+def create_step(self):
+        </pre>
     </div>
 
     <h2>Hyperparameter Tuning</h2>
@@ -82,4 +121,4 @@ def __init__(self, pipeline_session, role, pipeline_name, base_job_name, s3_base
 
     <a href="index.html">Back to Index</a>
 </body>
-</html> 
+</html>
