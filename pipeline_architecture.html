@@ -47,7 +47,23 @@
             <li>Model Registration</li>
             <li>Batch Transformation</li>
         </ol>
+        <p>Note that there are two ways to run each pipeline:</p>
+        <ol>
+            <li><strong>DEV mode</strong> - When developing, you need to run the pipeline from the main notebook.</li>
+            <li><strong>PROD mode</strong> - In production, the pipeline should be executed from a step function.</li>
+        </ol>
+        The required params to invoke the pipeline with is:
+        <ol>
+            <li>base_job_name</li>
+            <li>preprocessing_input_data_uri</li>
+            <li>prediction_point</li>
+        </ol>
+        When invoking in DEV mode, change the defaults of thoose parameters to the desired once. 
+        <h2>Important sidenote</h2>
+        After every change you do in the code, you <b>MUST</b> run the pipeline in DEV mode(running the notebook)
+        Before you run in in PROD mode, as running the pipeline in DEV mode is setting the snapshot of the pipeline.
     </div>
+    
 
     <div class="section">
         <h2>Data Flow</h2>
